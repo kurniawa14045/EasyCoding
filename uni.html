@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Unique</title>
+	<link rel="stylesheet" type="text/css" href="unique.css">
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="body.html">EasyCoding</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="body.html">HOME</a></li>
+          <li><a href="creative.html">CREATIVE</a></li>
+          <li><a href="uni.html">UNIQUE</a></li>
+           <li><a href="tips&trick.html">TIPS & TRICK</a></li>
+          <li><a href="about.html">ABOUT</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="jumbotron">
+    <div class="container text123">
+      <h3 class="judul">UNIQUE</h3>
+      <p class="text">many people fail because they try to copy others, not realizing that everyone has
+      a diferent question paper</p>
+    </div>
+  </div>
+
+  <div class="container">
+  <img class="gambar1" src="unique2.png">
+    <h2> A color scheme for modern web developmentn</h2>
+
+    <button type="button" class="btn btn-info btn-lg" id="myBtn5">Read</button>
+
+
+    <div class="modal fade" id="myModal5" role="dialog">
+      <div class="modal-dialog">
+
+
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title"> A color scheme for modern web development</h4>
+          </div>
+          <div class="modal-body">
+
+            <p>Nova is a unique color scheme designed using flat pastel colors that are easy on the eyes have a nice balance.
+The team currently supports Vim, Atom, HyperTerm, iTerm, tmux, and npm. It’s 100% free and open source
+You can grab the theme from the official site or from the GitHub project.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+<hr>
+  <div class="container">
+  <img class="gambar1" src="random.jpeg">
+    <h2> Announcing availability of Baqend’s unique client caching technology</h2>
+
+    <button type="button" class="btn btn-info btn-lg" id="myBtn6">Read</button>
+
+
+    <div class="modal fade" id="myModal6" role="dialog">
+      <div class="modal-dialog">
+
+
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title"> Announcing availability of Baqend’s unique client caching technology</h4>
+          </div>
+          <div class="modal-body">
+
+            <p>We are happy to announce that we have finished our efforts to bring our most exciting feature into Baqend Cloud: The Bloom filter-based Cache-Sketch. It is our novel and unique feature which enables Baqend-based applications to use expiration- based caches — in most cases the browser cache — to cache any dynamic data.
+Cache everything, not just assets!
+The tricky thing when using such caches is that you must specify a cache lifetime (TTL) when you first deliver the data from the server. After that you do not have any chance to kick the data out. It will be served by the browser cache up to the moment the TTL expires. For static assets it is not such a complex thing, since they usually only change when you deploy a new version of your web application. Therefore, you can use cool tools like gulp-rev-all and grunt-filerev to hash the assets. By renaming the assets at deployment time you ensure that all users will see the latest version of your page while using caches at their best
+But wait! What do you do with all the data which is loaded and changed by your application at runtime? Changing user profiles, updating a post or adding a new comment are seemingly impossible to combine with the browsers cache, since you cannot estimate when such updates will happen in the future. Therefore, caching is just disabled or very low TTLs are used.
+Baqend’s Cache-Sketch
+At Baqend we have researched and developed a smart solution where we can check the staleness of any data before we actually fetch them. At the begin of each user session we fetch a very small data structure called a Bloom filter, which is a highly compressed representation of a set. Before we make a request, we first check this set to know if it contains an entry for the resource we fetch. An entry in the set indicates that the content was changed in the near past and that the content may be stale. In such cases we bypass the browser cache and fetch the content form the nearest CDN edge server. In all other cases we serve the content directly from the browsers cache. Using the browser cache saves network traffic, bandwidth and is rocket-fast.
+In addition, we ensure that the CDN always contains the most recent data, by instantly purging data when it becomes stale.
+The Bloom filter is a probabilistic data structure with a tunable false positive rate, which means that the set may Indicate containment for objects which were never added. This is not a huge problem since it just means the we first revalidate the freshness of an object before we serve it from the browsers cache. Note that the false positive rate is very low and it is what enables us to make the footprint of the set very small. For an example we just need 11Kbyte to store 20,000 distinct updates.
+There is lot of stream processing (query match detection), machine learning (optimal TTL estimation) and distributed coordination (scalable Bloom filter maintenance) happening at the server side. If you’re interested in the nitty-gritty details have a look at this paper or these slides for a deep-dive.
+Accelerate your web app with automatic client caching
+The best thing from a developer perspective is, that you do not need to do anything to use this new feature! It’s enabled by default and whenever you fetch something through our JavaScript API it will automatically use our Bloom filter technique to give you fresh and fast responses. To see it in action set up a new free Baqend app and start hacking using the quickstart or our new Angular2 starter kit.
+In the next blog post, we’ll have a look at how much of a speed-up this caching scheme gives you for a typical web application. Spoiler alert: several seconds of page load time!
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="footer-distributed">
+   <div class="footer-left">
+   	<h3>Easy<span>Coding</span></h3>
+  	<p class="footer-links">
+      <a href="body.html">home</a>
+    	.
+    	<a href="creative.html">creative</a>
+    	.
+    	<a href="uni.html">unique</a>
+    	.
+    	<a href="tips&trick.html">tips & trick</a>
+    	.
+    	<a href="about.htmk">about</a>
+    </p>
+  	<p  class="footer-company-name">EasyCoding &copy;2017</p>
+
+   </div>
+
+  	 <div class="footer-center">
+  		 <p class="footer-company-about">
+  			 <span>about the webssite</span>
+  			We created this web as a means of information related to technology that focuses on technological developments web programmers and web design
+  						 </p>
+  	 </div>
+
+  </footer>
+
+
+<script>
+$(document).ready(function(){
+    $("#myBtn5").click(function(){
+        $("#myModal5").modal();
+    });
+});
+
+$(document).ready(function(){
+    $("#myBtn6").click(function(){
+        $("#myModal6").modal();
+    });
+});
+</script>
+
+
+</body>
+</html>

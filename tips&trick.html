@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tips & Trick</title>
+	<link rel="stylesheet" type="text/css" href="tips&trick.css">
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="body.html">EasyCoding</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="body.html">HOME</a></li>
+          <li><a href="creative.html">CREATIVE</a></li>
+          <li><a href="uni.html">UNIQUE</a></li>
+           <li><a href="tips&trick.html">TIPS & TRICK</a></li>
+          <li><a href="about.html">ABOUT</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="jumbotron">
+    <div class="container text123">
+      <h3 class="judul">Tips & Trick</h3>
+      <p class="text">On this page you can find interesting things tips & tricks when you are coding</p>
+    </div>
+  </div>
+
+
+  <div class="container">
+  <img class="gambar1" src="a+.jpeg">
+    <h2>A guide to JavaScript variable hoisting 🚩 with let and const</h2>
+
+    <button type="button" class="btn btn-info btn-lg" id="myBtn9">Read</button>
+
+
+    <div class="modal fade" id="myModal9" role="dialog">
+      <div class="modal-dialog">
+
+
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">A guide to JavaScript variable hoisting 🚩 with let and constt</h4>
+          </div>
+          <div class="modal-body">
+            New JavaScript developers often have a hard time understanding the unique behaviour of variable/function hoisting.
+
+Since we’re going to be talking about var, let and const declarations later on, it’s important to understand variable hoisting rather than function hoisting. Let’s dive in!
+What is variable hoisting?
+The JavaScript engine treats all variable declarations using “var” as if they are declared at the top of a functional scope(if declared inside a function) or global scope(if declared outside of a function) regardless of where the actual declaration occurs. This essentially is “hoisting”.
+So variables might actually be available before their declaration.
+Let’s see it in action..
+
+// OUTPUT : undefined
+console.log(shape);
+
+var shape = "square";
+
+// OUTPUT : "square"
+console.log(shape);
+
+If you’re coming from C-based languages, you’d expect an error to be thrown when the first console.log is called since the variable shape hadn’t been defined at that point. But the JavaScript interpreter looks ahead and “hoists” all variable declarations to the top, and the initialization remains in the same spot.
+
+Here’s what is happening behind the scenes:
+
+//declaration getting hoisted at the top
+var shape;
+
+// OUTPUT : undefined
+console.log(shape);
+
+var shape = "square";
+
+// OUTPUT : "square"
+console.log(shape);
+
+Here is another example this time in a functional scope to make things more clear:
+
+function getShape(condition) {
+  // shape exists here with a value of undefined
+
+  // OUTPUT : undefined
+  console.log(shape);
+
+  if (condition) {
+      var shape = "blue";
+      // some other code
+      return shape;
+  } else {
+      // shape exists here with a value of undefined
+      return false;
+  }
+}
+
+You can see in the above example how shape’s declaration is hoisted at the top of getShape() function. It is therefore accessible everywhere outside the if block and within the function with an undefined value.
+This default behavior of JavaScript has its fair share of advantages and disadvantages. Not fully understanding these can leads to bugs in our code.
+Enter Block-Level Declarations!
+ES6 introduced block-level scoping options to provide developers with more control and flexibility over a variable’s lifecycle.
+Block-level declarations are made in block/lexical scopes that are created inside a block “{ }”.
+let Declarations
+This syntax is similar to var, just replace var with let to declare a variable with its scope being only that code block.
+Place your let declarations at the top in a block so they’ll be available within that entire block.
+For example:
+
+function getShape(condition) {
+// shape doesn't exist here
+
+// console.log(shape); => ReferenceError: shape is not defined
+
+if (condition) {
+      let shape = "blue";
+      // some other code
+      return shape;
+  } else {
+      // shape doesn't exist here
+      return false;
+  }
+}
+
+Notice how shape exists only inside the if block, and throws an error when accessed outside of it instead of outputting undefined like our previous case with var declarations.
+
+NOTE : If an identifier has already been defined inside a scope , using that same identifier in a let declaration inside the same scope throws an error.
+Also, no error is thrown if a let declaration creates a variable with the same name as that of a variable in it’s outer scope. (This case is same with const declarations which we’ll talk about shortly.)
+
+For example:
+
+var shape = "square";
+
+let shape = "rectangle";
+
+// SyntaxError: Identifier 'shape' has already been declared
+
+and:
+
+var shape = "square";
+if (condition) {
+  // doesn't throw an error
+  let shape = "rectangle";
+  // more code
+}
+// No error
+
+const Declarations
+
+The declaration syntax is similar to let & var , lifecycle is the same as let. But you have to follow some rules.
+
+Bindings declared using const are treated as constants, and therefore their values cannot be changed once defined. Due to this, every const declaration must be initialized at the time of declaration.
+
+For example:
+
+// valid
+const shape = "triangle";
+
+// syntax error: missing initialization
+const color;
+
+// TypeError: Assignment to constant variable
+shape = "square"
+
+However, the rule is a little different when it comes to objects. An object’s value can be modified!
+
+const shape = {
+  name: "triangle",
+  sides: 3
+}
+
+// WORKS
+shape.name = "square";
+shape.sides = 4;
+
+// SyntaxError: Invalid shorthand property initializer
+shape = {
+  name: "hexagon",
+  sides: 6
+}
+
+In the above example we can see that only the properties of the shape object could be changed because we are only changing what shape contains, not what it’s bound to.
+We can summarize by saying that const prevents modification of the binding as a whole — not the value that it’s bound to.
+Note: properties can be mutated. So for true immutability, use Immutable.js or Mori.
+The Temporal Dead Zone
+We now know that accessing a let or const variables before they’re declared will throw a ReferenceError. This period between entering scope and being declared where they cannot be accessed is called the Temporal Dead Zone.
+Note that “Temporal Dead Zone” isn’t formally mentioned in the ECMAScript specification. It’s just a popular term among programmers.
+I personally recommend you always use let or const, as they lead to fewer bugs. I have yet to encounter a situation where I needed to use var.
+As a general rule, I use let for loop counters or only if I really need reassignment. Everywhere else, I use const.
+Click here for my article on some of the useful new features in ES6 related to functions.
+            <p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+<hr>
+  <div class="container">
+  <img class="gambar1" src="desine.jpg">
+    <h2>The Importance of Having a Powerful Visual Design Strategy</h2>
+
+    <button type="button" class="btn btn-info btn-lg" id="myBtn10">Read</button>
+
+
+    <div class="modal fade" id="myModal10" role="dialog">
+      <div class="modal-dialog">
+
+
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">The Importance of Having a Powerful Visual Design Strategy</h4>
+          </div>
+          <div class="modal-body">
+            Design is just one component of your entire business strategy, but it’s also one of the most important. Design has the unique ability to enhance practically every element of your marketing, content, and customer experience.
+  Good design doesn’t happen overnight, and like all aspects of your marketing, an effective design must be built upon a strategy. Having a great visual design strategy establishes a powerful brand message that elevates your business and grows your customers.
+  The Visual Design Problem
+  One of the biggest problems related to design in business is that most designers aren’t taught branding. The branding process must include the integration of design and business strategy principles in order to succeed in today’s marketplace. Your design strategy needs to be prioritized to create a powerful visual design that supports your branding efforts. You need to think of visual design as something more than a color scheme, logo, or fonts.
+  Your design strategy needs to be prioritized to create a powerful visual design that supports your branding efforts. You need to think of visual design as something more than a color scheme, logo, or fonts. Designers must be more active in the decision-making process within your organization. They must be willing to implement leadership and market skills while developing a brand.
+  Designers must be more active in the decision-making process within your organization. They must be willing to implement leadership and market skills while developing a brand.
+  Establishing a Visual Design Strategy
+  Visual design strategies merge multiple disciplines that include marketing and the psychology of customer behaviors. A brand is what makes your business unique and stand out from its competitors.
+  Using visual design in your branding process lets you shape the perception your audience has towards your business. Creating a positive experience frame allows you to strengthen your brand message.
+  Having a unique identity is essential to succeeding in today’s marketplace. This identity consists of the visual elements that help your audience remember you. Having a well-planned visual design strategy is fundamental to your long-term success.
+  The Benefits of a Visual Design Strategy
+  A visual design strategy creates a lasting relationship with the design team as you gain greater insight and new ideas. Combining skill sets creates a more consistent experience for your audiences and enhances their engagement with your products and services.
+  This puts your visual design efforts in a new and comprehensive context. It allows you to be more responsive to the needs of your customers as your brand evolves over time.
+  Your visual design strategy lets you achieve business objectives including increased conversion, traffic, and response rates for all of your marketing efforts. Strategy backed by data leads to measurable results.
+  Using the feedback received and measured through your analytics, you can optimize your visual design strategy over time. Businesses who get stuck in their designs lose momentum as they fail to recognize key opportunities that can be leveraged through a redesign.
+  Your visual design strategy must be consistent across all points of contact. The following are the main areas to consider when implementing a design strategy:
+
+      Company Logo
+      Website
+      Packaging
+      Marketing materials (business cards, brochures, etc.)
+      Social media
+
+  Creating a consistent brand experience across all of these areas maximizes the return on your design, branding, and marketing efforts. It supports the awareness and recognition of your brand in your industry.
+  You distinguish yourself from your competitors and achieve greater engagement with your customers.
+  Making your design team an active participant in the goals and strategies of your business makes it easy to incorporate design elements that contribute to your bottom line.
+  Let us know how you’ve implemented a visual design strategy to successfully boost your business. If you’re not sure where to begin, let us know what you’re sticking points are. We’ll help you determine how a visual design strategy can be used to create a more powerful brand experience that translates into increased growth and revenue.
+            <p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+<hr>
+<div class="container">
+<img class="gambar1" src="ecomerece.jpg">
+  <h2>How we’re building a platform for future of eCommerce</h2>
+
+  <button type="button" class="btn btn-info btn-lg" id="myBtn12">Read</button>
+
+
+  <div class="modal fade" id="myModal12" role="dialog">
+    <div class="modal-dialog">
+
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">How we’re building a platform for future of eCommerce</h4>
+        </div>
+        <div class="modal-body">
+          We just launched Kamva eCommerce platform in private beta a few days ago. I like to take this opportunity to talk about what is so unique about it and how we’re going to foster eCommerce growth in Middle East.
+We had to build a platform that is really simple and easy to use and at the same time, flexible enough to build up on for a rapidly changing eCommerce scene. For that reason, we had to start from scratch. Building on top of existing solutions such as Magento or WooCommerce were not going to work.
+This is the process. In order to launch an online store in Iran, you have to hire devs or an agency to build you a site. There is no Shopify or anything close to that (in terms of service and ease of use). You have to spend a lot of money to just launch a site. Not to mention, there are lots of rules and regulation about how your site should work. It takes months to get a payment gateway (you need to get approval from e-Namad first).
+In short, it takes both money and patience to launch an online store in Iran. But how are Iranians selling online now? If they’re not a big company, they are probably selling on Instagram. It’s all manual work! They can’t scale the operation easily so it’s mostly very small home-grown businesses that are helping to pay the bills. that’s all about to change.
+We are based in Iran and will launch our platform to Iranian market first. eCommerce is growing really fast in this country. In fact, the market grew 16% in amount of online transactions and it’s expected to reach 20% growth this year due to Iran’s rapid infrastructure improvement and growing internet penetration. The market size is $17.5B USD. Kamva will get a big share of that market and will expand the market itself by making the process easier.
+Let’s get a bit technical
+Kamva eCommerce platform is consist of three different apps, Shop Admin, Shop front, and API.
+We designed it to be really easy to use. The shop admin app and shop front app is written in Backbone.js. They are single page application (SPA) which have two important advantages. First, when the app loads, it’s really quick to navigate to other parts of the app. Instead of loading the whole page, Backbone just loads the data it needs from API and loads assets from CDN. The second advantage is flexibility. It allows us to change and add features really fast. Testing is easier too. Since it’s a single app that serves all users, we can launch a new app and move some of the customers to the new one. This flexibility was crucial to us. In this day and age, you need to adapt to ever changing landscape of ecommerce or you’re dead.
+how it works
+We had to build robust APIs to work with these two SPAs. This will allow us to launch our mobile apps and integrate with other services quicker. It also allow us to expand to other markets fast. Each language can have it’s own SPA (e.g. Shop Admin app in English would be a separate app).
+One thing was really important for us in Kamva, we wanted to build a platform that helps our customers sell more. For that reason, we are giving away Elasticsearch on every plan. Elasticsearch is the latest search technology that allows their customers to find the product they want faster and easier. We have faceted search to filter products based on brand, price, and any other attribute the shop owner defines. This is not something Shopify or any other eCommerce platform have on their cheapest plan. We believe success of our customers will ultimately help us grow. For that reason, any feature that helps them sell more are included in every plan.
+Both Elastic and Mongo servers can be scaled really fast to accommodate our need. In order to be truly scalable, we used Flynn. It’s a unified platform that fixes everything that’s wrong with the process of deploying, scaling, and managing applications and databases. It includes everything you need from containers and service discovery to database appliances. So you take advantage of the best new technologies without gluing a new stack together yourself. Flynn allows us to use the power of Docker whilst we can save money. Flynn can also be used to include test and deploy workflows with zero down-time. Continues Integration is easy to implement too. Flynn is like having your own Heroku.
+We used a combination of Amazon S3 and Cloudflare CDN to handle shops static assets (it’s mostly images). Cloudflare does clever things to optimise image delivery based on connection speed and device.
+The average internet speed is very low in Iran, so we had to use another local CDN to host SPA assets (javascript files, templates, css files). The Shop front app sends first request to API to get shop details and configs. Our shop app is just one instance that fetches all the settings, themes, and shop data over API. It was a challenge to optimise this app to be quick. We wanted to build one SPA apps for all shops and get all relevant theme files as it loads. This architecture allows us to change any shop and point it to different clone of this SPA app. We are going to use this flexibility for enterprise customers. We can add any feature for them since it’s a separate application hosted on Flynn.
+I am very proud of our small team for pulling this off. Watch this space for future updates on Kamva
+          <p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<hr>
+<div class="container">
+<img class="gambar1" src="yujis.png">
+  <h2>Sustaining webpack for the future</h2>
+
+  <button type="button" class="btn btn-info btn-lg" id="myBtn11">Read</button>
+
+
+  <div class="modal fade" id="myModal11" role="dialog">
+    <div class="modal-dialog">
+
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Sustaining webpack for the future</h4>
+        </div>
+        <div class="modal-body">
+          In addition to writing JavaScript, each of the maintainers on the webpack core team have unique talents that allow them to fill important roles for the organization.
+  Besides doing my best to represent the voice of webpack and its users, I also am responsible for finding ways to better sustain the organization. When asked to join the core team, I made a promise that I would find an effective way to provide this funding and support.
+  There were many avenues to take and pursue, however our biggest concern was that we lacked a transparent and open way of showing the community what and how they were supporting us.
+  Thanks to Pia Mancini and her partners, this transparency is now possible. I’m proud to announce that webpack is now apart of open collective!
+  The webpack open collective
+  From the open collective homepage.
+  Open collective provides a transparent, sustainable, and secure way for people to support and sponsor open source projects. We are thrilled and honored to be amongst the likes of projects like APEX, Yeoman, GulpJS, KOA, Mocha, and so much more!!
+  What is an open collective?
+  An open collective is best described as (seen on their webpage):
+      A group of people with a shared mission that operates in full transparency
+  Here are the benefits of this mission:
+      Open involvement for anyone
+      Both individuals and companies can sponsor, fund, or back our mission (with potential tax benefits).
+      Following the money is easy and transparent
+      You help decide the future of webpack through your support
+      Anyone can collect funds by contributing to the webpack ecosystem
+  What will webpack do with my sponsorship?
+  Up until now, we have been completely focused on our documentation efforts. Now that documentation is nearing completion, we can start focusing on releasing webpack 2.
+  But once this is finished, we then have some great ideas that we’d like your feedback on:
+      Setting up official weekly office hours and improving our support infrastructure.
+      Simply being able to spend more time contributing to the core library. All of us on the core team work on webpack on our free time and would love to be able to feasibly provide more support, communication, and development.
+      Create comprehensive video series, written and narrated by the core team.
+      Support for taking the time to convert the entire project to TypeScript. We believe that TypeScript allows users to better write scaled and complex code with rich APIs (like webpack). If we can make code easier for you to write, then its worth our time to invest in for your contributions.
+      Create a webpack UI! We’ve had many requests to create a native application that will help you configure your build process, but never the time and opportunity to work on it.
+  Our new open collective page
+  How can I help?
+  To become a sponsor or backer, visit our open collective page and follow the instructions for becoming a part of our collective. Take the time to explore some of the other great collectives that people are supporting. Once we start using these donations, you can track and see how they are being withdrawn and for what.
+  By sponsoring you also get a front-page cameo on our new docs site at the top of the page right under these buttons!
+  This is just the beginning
+  We are grateful that you have invested the time in using webpack, but we want your investment to last. Funding and support is only one part of a sustainable open source project. And we can’t wait to share what we have in store next.
+          <p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+  <script>
+  $(document).ready(function(){
+      $("#myBtn9").click(function(){
+          $("#myModal9").modal();
+      });
+  });
+
+  $(document).ready(function(){
+      $("#myBtn10").click(function(){
+          $("#myModal10").modal();
+      });
+  });
+
+  $(document).ready(function(){
+      $("#myBtn11").click(function(){
+          $("#myModal11").modal();
+      });
+  });
+
+  $(document).ready(function(){
+      $("#myBtn12").click(function(){
+          $("#myModal12").modal();
+      });
+  });
+
+  </script>
+
+
+  <footer class="footer-distributed">
+   <div class="footer-left">
+   	<h3>Easy<span>Coding</span></h3>
+  	<p class="footer-links">
+      <a href="body.html">home</a>
+    	.
+    	<a href="creative.html">creative</a>
+    	.
+    	<a href="uni.html">unique</a>
+    	.
+    	<a href="tips&trick.html">tips & trick</a>
+    	.
+    	<a href="about.htmk">about</a>
+    </p>
+  	<p  class="footer-company-name">EasyCoding &copy;2017</p>
+
+   </div>
+
+  	 <div class="footer-center">
+  		 <p class="footer-company-about">
+  			 <span>about the website</span>
+  			We created this web as a means of information related to technology that focuses on technological developments web programmers and web design
+  						 </p>
+  	 </div>
+
+  </footer>
+</body>
+</html>
